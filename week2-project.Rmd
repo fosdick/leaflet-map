@@ -1,0 +1,48 @@
+---
+title: Week 2, Project 1
+subtitle: map is on next slide, use arrow key or space bar (3 slides total)
+output:
+  ioslides_presentation: default
+  slidy_presentation: default
+---
+
+
+```{r setup, include=FALSE, message=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+#install.packages("leaflet", repos = "http://cran.us.r-project.org")
+library(leaflet)
+```
+```{r, include=FALSE, message=FALSE}
+Sys.time()
+## print with possibly greater accuracy:
+op <- options(digits.secs = 6)
+Sys.time()
+options(op)
+
+## locale-specific version of date()
+d <- format(Sys.time(), "%a %b %d %X %Y")
+```
+## Leaflet map
+### Date Created: 8/10/2018
+### Today's Date `r d`
+```{r}
+m <- leaflet() %>%
+  addTiles() %>%  # Add default OpenStreetMap map tiles
+  addMarkers(lng=174.768, lat=-36.852, popup="The birthplace of R")
+m
+
+```
+
+
+## Examples with US states.
+
+```{r include=FALSE, message=FALSE}
+# install.packages("maps")
+ library(maps)
+```
+```{r}
+mapStates = map("state", fill = TRUE, plot = FALSE)
+map <- leaflet(data = mapStates) %>% addTiles() %>%
+  addPolygons(fillColor = topo.colors(10, alpha = NULL), stroke = FALSE)
+map
+```
